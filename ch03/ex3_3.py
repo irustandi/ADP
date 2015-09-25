@@ -1,6 +1,7 @@
 __author__ = 'indra'
 
 import numpy as np
+import matplotlib.pyplot as plt
 
 numIter = 50
 gamma = 0.8
@@ -18,9 +19,12 @@ for iter in range(0, numIter):
     # state 1
     state1_1_val = transMat[0, 0] * (contribMat[0, 0] + gamma * valueMat[iter-1, 0])
     state1_2_val = transMat[0, 1] * (contribMat[0, 1] + gamma * valueMat[iter-1, 1])
-    valueMat[iter+1,0] = np.max([state1_1_val, state1_2_val])
+    valueMat[iter+1,0] = state1_1_val + state1_2_val
 
     # state 2
     state2_1_val = transMat[1, 0] * (contribMat[1, 0] + gamma * valueMat[iter-1, 0])
     state2_2_val = transMat[1, 1] * (contribMat[1, 1] + gamma * valueMat[iter-1, 1])
-    valueMat[iter+1,1] = np.max([state2_1_val, state2_2_val])
+    valueMat[iter+1,1] = state2_1_val + state2_2_val
+
+plt.plot(valueMat[:,0])
+plt.show()
