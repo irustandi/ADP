@@ -23,8 +23,8 @@ timeLen = 10
 p0 = 100
 
 #delta = 1
-#delta = 5
-delta = 10
+delta = 5
+#delta = 10
 
 valuesTable = dict()
 
@@ -63,13 +63,15 @@ for sampleIdx in range(0, numSamples):
     sampleCurr = generateSample(p0, timeLen)
 
     for timeIdx in range(0, timeLen):
+        if timeIdx + 1 == timeLen:
+            sellTimes[sampleIdx] = timeIdx
+            break
+
         pCurr = sampleCurr[timeIdx]
-        stateCurr = int(roundPrice(pCurr, delta))
+        pNext = sampleCurr[timeIdx+1]
+        stateNext = int(roundPrice(pNext, delta))
 
-        if not (timeIdx, stateCurr) in valuesTable:
-            continue
-
-        if pCurr > valuesTable[(timeIdx, stateCurr)]:
+        if not (timeIdx + 1, stateNext) in valuesTable or pCurr > valuesTable[(timeIdx + 1, stateNext)]:
             sellTimes[sampleIdx] = timeIdx
             break
 
