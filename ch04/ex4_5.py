@@ -14,6 +14,7 @@ for timeIdx in range(timeLen-1, 0, -1):
     probLower = optVal[timeIdx] / maxVal
     optVal[timeIdx-1] = (1. / (2. * maxVal)  * (maxVal ** 2. - optVal[timeIdx] ** 2.)) + probLower * optVal[timeIdx]
 
+# ADP, a la Figure 4.2, maybe including obvious modifications/simplifications
 numIter = 1000
 
 values = np.zeros(timeLen)
